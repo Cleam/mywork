@@ -9,6 +9,7 @@
 		this.colCount = param.colCount || 4;
 		this.boxCls = param.boxCls && param.boxCls != '' ? param.boxCls : 'box';
 		this.colWidth = Math.floor(this.container.offsetWidth / this.colCount) - 10; // 10为间隙
+		this.lastBoxHeight = 0;
 		this.init();
 	}
 
@@ -75,6 +76,28 @@
 			return mh;
 		},
 		/**
+		 * 当滚动到浏览器底端时加载图片
+		 */
+		addImg: function(){
+			var scope = this;
+			// 加载图片
+			var data = {
+				'root': [{'src': '4.jpg'},{'src': '14.jpg'},{'src': '5.jpg'},{'src': '15.jpg'},{'src': '6.jpg'},{'src': '16.jpg'},{'src': '7.jpg'},{'src': '17.jpg'},{'src': '8.jpg'},{'src': '18.jpg'}]
+			};
+			for (var i = 0; i < data.root.length; i++) {
+				var box = document.createElement('div');
+				box.className = 'box';
+				var imgWrap = document.createElement('div');
+				imgWrap.className = 'img-wrap';
+				var img = document.createElement('img');
+				img.src = 'img/' + data.root[i].src;
+				imgWrap.appendChild(img);
+				box.appendChild(imgWrap);
+				scope.container.appendChild(box);
+			}
+			scope.init();
+		},
+		/**
 		 * 初始化方法
 		 */
 		init: function(){
@@ -89,6 +112,7 @@
 			}
 			for (i = 0; i < boxes.length; i++) {
 				boxes[i].h = boxes[i].offsetHeight + scope.getMarginBottom(boxes[i]);
+				scope.lastBoxHeight = boxes[boxes.length - 1].offsetHeight + scope.getMarginBottom(boxes[boxes.length - 1]);
 			}
 			// 布置图片盒子
 			for (i = 0; i < boxes.length; i++) {
@@ -101,6 +125,20 @@
 			// 设置容器高度
 			scope.container.style.height = scope.getMaxheight(colHeightArr) + 'px';
 			scope.container.style.visibility = 'visible';
+
+			/**
+			 * 滚动事件
+			 * @return {[type]} [description]
+			 */
+			window.onscroll = function(){
+				var st = document.documentElement.scrollTop || document.body.scrollTop;
+				var sh = document.documentElement.scrollHeight || document.body.scrollHeight;
+				var ch = document.documentElement.clientHeight ||  document.body.clientHeight;
+				if(st + ch > sh - scope.lastBoxHeight) {
+					console.log('aaa');
+					scope.addImg();
+				}
+			};
 		}
 	};
 
