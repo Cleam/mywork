@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+	    html {height: 100%;}
+	    body {height: 100%; margin: 0px; padding: 0px; font-family:"Microsoft Yahei";}
+	    .container {width: 1200px; height: 600px; margin: 0 auto;}
+	    .map{width: 900px; height: 100%;}
+	    .result{width: 285px; height: 100%; margin-left: 15px; overflow: auto;}
+		*html .clearfix{height:1%; zoom: 1;}
+		.clearfix{display:block; zoom: 1;}
+	    .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+		.fl{float: left; display: inline;}
+		.fr{float: right; display: inline;}
+		.fb{font-weight: bold;}
+		.tc{text-align: center;}
+		.mt15{margin-top: 15px;}
+		.linkBtnWrap a{display: inline-block; padding: 10px 50px; background-color: #56ADE8; color: white; text-decoration: none; border-radius: 5px;}
+		.btnWrap input{padding: 9px; border: 1px solid #ccc;}
+		.btnWrap select{padding: 8px; border: 1px solid #ccc;}
+		.btnWrap button{padding: 10px 50px; background-color: #56ADE8; color: white; border: 0 none; border-radius: 5px; cursor: pointer;}
+    </style>
+    <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script> -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=oRiRKTHTIhiNKY53pzMRnPTv"></script>
+    <!-- 加载百度地图样式信息窗口 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+    <!-- 加载城市列表 -->
+    <!-- <script type="text/javascript" src="http://api.map.baidu.com/library/CityList/1.2/src/CityList_min.js"></script> -->
+    <title>叠加麻点图层</title>
+</head>
+
+<body>
+    <div id="map" class="container"></div>
+    <div class="btnWrap tc mt15">
+    	<button id="open">打开</button>
+        <button id="close">关闭</button>
+		<select name="" id="search_tags">
+			<option value="浦东" checked="checked">浦东</option>
+			<option value="黄浦">黄浦</option>
+			<option value="宝山">宝山</option>
+			<option value="虹口">虹口</option>
+			<option value="闵行">闵行</option>
+			<option value="静安">静安</option>
+			<option value="青浦">青浦</option>
+			<option value="嘉定">嘉定</option>
+			<option value="松江">松江</option>
+			<option value="长宁">长宁</option>
+			<option value="崇明">崇明</option>
+			<option value="徐汇">徐汇</option>
+			<option value="闸北">闸北</option>
+			<option value="普陀">普陀</option>
+			<option value="奉贤">奉贤</option>
+		</select>
+		<!-- <select name="" id="search_tags2">
+			<option value="党政" checked="checked">党政</option>
+			<option value="社区">社区</option>
+			<option value="其他">其他</option>
+		</select> -->
+		<input id="search_keyword" type="text" placeholder="关键字(可选)">
+		<!-- <input id="search_filter" type="text" placeholder="过滤条件"> -->
+		<button id="local_search">本地搜索</button>
+	</div>
+
+    <script type="text/javascript">
+	    // 百度地图API功能
+	    var map = new BMap.Map("map", {
+	    	enableMapClick: false, // 关闭地图底图默认可点功能
+	        minZoom: 10, // 设置地图最小级别
+	        maxZoom: 19 // 设置地图最大级别
+	    }); // 创建地图实例
+	    map.centerAndZoom("上海", 12); // 初始化地图,用城市名设置地图中心点
+	    map.enableScrollWheelZoom(); // 可缩放
+	    map.disableDoubleClickZoom(); // 禁止双击缩放
+	    map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+
+	    var customLayer,	// 自定义图层
+	    	keyword = '', 	// 关键字
+	    	tags = '', 
+	    	filter = '';
+	    function addCustomLayer(k, t, f) {
+	        if (customLayer) {
+	            map.removeTileLayer(customLayer);
+	        }
+	        customLayer = new BMap.CustomLayer({
+	            // geotableId: 30960,
+	            geotableId: 115095,
+	            q: k, //检索关键字
+	            tags: t, //空格分隔的多字符串
+	            filter: f //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby
+	        });
+	        map.addTileLayer(customLayer);
+	        customLayer.addEventListener('hotspotclick', callback);
+	    }
+
+	    //单击热点图层
+	    function callback(e) {
+	    	console.info(e);
+	        var customPoi = e.customPoi; //poi的默认字段
+	        var contentPoi = e.content; //poi的自定义字段
+	        var content = '<p style="width:280px;margin:0;line-height:20px;">' + 
+		        			'<span class="fb">名称：</span>' + contentPoi.title + '<br/>' +
+		        			'<span class="fb">地址：</span>' + contentPoi.address + '<br/>' +
+		        			'<span class="fb">所在区：</span>' + contentPoi.district + '<br/>' +
+		        			'<span class="fb">坐标位置：</span>' + contentPoi.location + '<br/>' +
+		        			'<span class="fb">标签：</span>' + contentPoi.tags + '<br/>' +
+	        			'</p>';
+	        var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+	            title: contentPoi.title, //标题
+	            width: 290, //宽度
+	            height: 100, //高度
+	            // offset: new BMap.Size(0, 0),	// 设置窗口偏移	
+	            panel: "panel", //检索结果面板
+	            enableAutoPan: true, //自动平移
+	            enableSendToPhone: true, //是否显示发送到手机按钮
+	            searchTypes: [
+	                BMAPLIB_TAB_SEARCH, //周边检索
+	                BMAPLIB_TAB_TO_HERE, //到这里去
+	                BMAPLIB_TAB_FROM_HERE //从这里出发
+	            ]
+	        });
+	        var point = new BMap.Point(customPoi.point.lng, customPoi.point.lat);
+	        console.info(searchInfoWindow);
+	        searchInfoWindow.open(point);
+	    }
+	    document.getElementById("open").onclick = function() {
+	        addCustomLayer(keyword, tags, filter);
+	    };
+	    // document.getElementById("open").click();
+	    document.getElementById("close").onclick = function() {
+	        if (customLayer) {
+	            map.removeTileLayer(customLayer);
+	        }
+	    };
+	    document.getElementById('local_search').onclick = function(){
+	    	keyword = document.getElementById('search_keyword').value;
+	    	tags = document.getElementById('search_tags').value;
+	    	// filter = document.getElementById('search_filter').value;
+	    	addCustomLayer(keyword, tags, filter);
+	    }
+    </script>
+</body>
+
+</html>

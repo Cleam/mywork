@@ -1,0 +1,32 @@
+@charset "utf-8";
+a{color: #333333; text-decoration: none; outline: none; -webkit-transition:all 0.15s linear;-moz-transition:all 0.15s linear;-ms-transition:all 0.15s linear;-o-transition:all 0.15s linear; cursor: pointer;}
+a:hover {text-decoration: none;}
+
+/* nav */
+.navbar-inverse{background-color: rgba(34,34,34,.5);}
+.navbar-inverse .navbar-toggle{border-color: #808080;}
+.navbar-inverse .navbar-toggle:focus, 
+.navbar-inverse .navbar-toggle:hover {background-color: #707070;} 
+.navbar-brand{height: 70px;}
+.navbar-toggle{margin-top: 18px;}
+.nav li{padding-top: 22px;}
+@media screen and (max-width: 767px){
+	.nav li{padding-top: 0; padding-bottom: 15px; text-align: center;}
+}
+.nav li a{display: inline-block; position: relative; width: 90px; margin-right: 15px; text-align: center; font-size: 15px; padding-top: 13px; padding-bottom: 13px;}
+.nav li.active a{background-color: transparent !important;}
+.nav li a .en,
+.nav li a .cn{-webkit-transition: all .25s linear; -moz-transition: all .25s linear; -ms-transition: all .25s linear; -o-transition: all .25s linear; transition: all .25s linear;}
+.nav li .circle{background: url("../img/cl.png") no-repeat; position: absolute; top: 0; left: 50%; margin-left: -45px; width: 90px; height: 26px; opacity: 0; filter: alpha(opacity=0); -webkit-transform: scale(1.2); -moz-transform: scale(1.2); -ms-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); -webkit-transition: .25s; -moz-transition: .25s; -ms-transition: .25s; -o-transition: .25s; transition: .25s;}
+.nav li .circle.circle-a{background-image: url("../img/cl_a.png");}
+.nav li.active .circle,
+.nav li:hover .circle{opacity: 1; filter: alpha(opacity=100); -webkit-transform: scale(1); -moz-transform: scale(1); -ms-transform: scale(1); -o-transform: scale(1); transform: scale(1);}
+.nav li .txt{color: #fff; position: absolute;left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; line-height: 26px;}
+.nav li .txt .en,
+.nav li .txt .cn{position: absolute; left: 0; width: 100%; height: 100%;}
+.nav li .txt .en{top: 0; opacity: 1;}
+.nav li .txt .cn{top: 100%; opacity: 0;}
+.nav li.active .txt .en,
+.nav li:hover .txt .en{top: -100%; opacity: 0;}
+.nav li.active .txt .cn,
+.nav li:hover .txt .cn{top: 0; opacity: 1; }
