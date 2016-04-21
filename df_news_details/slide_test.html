@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/unslider.css">
+	<style>
+		.banner { position: relative; overflow: auto; }
+    	.banner li { list-style: none; }
+        .banner ul li { float: left; }
+	</style>
+</head>
+<body>
+	<div class="banner">
+	    <ul>
+	        <li>This is a slide.</li>
+	        <li>This is another slide.</li>
+	        <li>This is a final slide.</li>
+	    </ul>
+	</div>
+
+	<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/unslider-min.js"></script>
+	<script>
+		$('.banner').unslider({
+		    speed: 500,               //  滚动速度
+		    delay: 3000,              //  动画延迟
+		    complete: function() {},  //  动画完成的回调函数
+		    keys: true,               //  启动键盘导航
+		    dots: true,               //  显示点导航
+		    fluid: false              //  支持响应式设计
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+@charset "utf-8";
+/**
+ * 新闻详情页 - 样式文件
+ * @author lizhigao(lizhigao@021.com)
+ */
+@baseColor: #333;
+@commonColor: #666;
+@lineColor1: #DBDBDB;
+@lineColor2: #DCDCDC;
+@smSize: 12px;
+@commonSize: 14px;
+
+/*==================== common style ====================*/
+.w1002{width: 1002px;}
+.bc{display: block; margin-left: auto; margin-right: auto;}
+.split-line{font-family: sans-serif; color: #DDDDDD;}
+
+/*==================== header ====================*/
+.header{
+  background-color: #F8F8F8; border-bottom: 1px solid @lineColor1;
+  .header-wrap{
+    .top{
+      /* 顶部nav */
+      height: 38px; line-height: 38px;
+      a{
+        color: #666; font-size: @smSize;
+        &:hover{color: #f00; text-decoration: none;}
+        img{height: 18px; margin-right: 3px; vertical-align: middle; margin-bottom: 3px;}
+      }
+      .top-r{
+        _padding-top: 10px;
+      }
+    }
+    .ad-wrap{
+      /* 广告 - 1 */
+      text-align: center;
+    }
+    .bottom{
+      padding: 15px 0; position: relative;
+      .bottom-l{
+        .logo{
+          display: inline-block; height: 30px; line-height: 0; font-size: 24px; font-family: "microsoft yahei"; color: @baseColor; margin-right: 5px;
+          img{vertical-align: middle; margin-bottom: 5px; margin-right: 3px; _margin-bottom: 0;}
+          &:hover{text-decoration: none; color: @baseColor;}
+        }
+        .crumbs{
+          a{color: @commonColor; font-size: @smSize;}
+        }
+      }
+      .act-wrap{
+        text-align: right; width: 100%; position: absolute; right: 245px; top: 25px;
+        .act{
+          color: red; padding-right: 20px; position: relative;
+          img{position: absolute; right: 0; top: -10px;}
+        }
+      }
+      .bottom-r{
+        height: 30px; width: 230px; overflow: hidden;
+        form{
+          .input-wrap{
+            border: 1px solid @lineColor1; background-color: #fff; height: 26px; line-height: 26px; overflow: hidden;
+            input{border: 0 none; background-color: transparent;}
+            input.txt{padding: 5px 6px; width: 170px;}
+            .split-line{_padding-bottom: 5px; _display: inline-block;}
+            input.submit{
+              background-image: url("../img/icon_search.png");
+              background-repeat: no-repeat;
+              background-position: center center;
+              height: 26px; line-height: 26px; text-indent: -999px; width: 30px;}
+
+          }
+        }
+      }
+
+    }
+
+  }
+}

@@ -1,0 +1,126 @@
+@charset "utf-8";
+/**
+ * 新闻详情页 - 样式文件
+ * @author lizhigao(lizhigao@021.com)
+ */
+/*==================== common style ====================*/
+.w1002 {
+  width: 1002px;
+}
+.bc {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.split-line {
+  font-family: sans-serif;
+  color: #DDDDDD;
+}
+/*==================== header ====================*/
+.header {
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #DBDBDB;
+}
+.header .header-wrap .top {
+  /* 顶部nav */
+  height: 38px;
+  line-height: 38px;
+}
+.header .header-wrap .top a {
+  color: #666;
+  font-size: 12px;
+}
+.header .header-wrap .top a:hover {
+  color: #f00;
+  text-decoration: none;
+}
+.header .header-wrap .top a img {
+  height: 18px;
+  margin-right: 3px;
+  vertical-align: middle;
+  margin-bottom: 3px;
+}
+.header .header-wrap .top .top-r {
+  _padding-top: 10px;
+}
+.header .header-wrap .ad-wrap {
+  /* 广告 - 1 */
+  text-align: center;
+}
+.header .header-wrap .bottom {
+  padding: 15px 0;
+  position: relative;
+}
+.header .header-wrap .bottom .bottom-l .logo {
+  display: inline-block;
+  height: 30px;
+  line-height: 0;
+  font-size: 24px;
+  font-family: "microsoft yahei";
+  color: #333;
+  margin-right: 5px;
+}
+.header .header-wrap .bottom .bottom-l .logo img {
+  vertical-align: middle;
+  margin-bottom: 5px;
+  margin-right: 3px;
+  _margin-bottom: 0;
+}
+.header .header-wrap .bottom .bottom-l .logo:hover {
+  text-decoration: none;
+  color: #333;
+}
+.header .header-wrap .bottom .bottom-l .crumbs a {
+  color: #666;
+  font-size: 12px;
+}
+.header .header-wrap .bottom .act-wrap {
+  text-align: right;
+  width: 100%;
+  position: absolute;
+  right: 245px;
+  top: 25px;
+}
+.header .header-wrap .bottom .act-wrap .act {
+  color: red;
+  padding-right: 20px;
+  position: relative;
+}
+.header .header-wrap .bottom .act-wrap .act img {
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
+.header .header-wrap .bottom .bottom-r {
+  height: 30px;
+  width: 230px;
+  overflow: hidden;
+}
+.header .header-wrap .bottom .bottom-r form .input-wrap {
+  border: 1px solid #DBDBDB;
+  background-color: #fff;
+  height: 26px;
+  line-height: 26px;
+  overflow: hidden;
+}
+.header .header-wrap .bottom .bottom-r form .input-wrap input {
+  border: 0 none;
+  background-color: transparent;
+}
+.header .header-wrap .bottom .bottom-r form .input-wrap input.txt {
+  padding: 5px 6px;
+  width: 170px;
+}
+.header .header-wrap .bottom .bottom-r form .input-wrap .split-line {
+  _padding-bottom: 5px;
+  _display: inline-block;
+}
+.header .header-wrap .bottom .bottom-r form .input-wrap input.submit {
+  background-image: url("../img/icon_search.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 26px;
+  line-height: 26px;
+  text-indent: -999px;
+  width: 30px;
+}
